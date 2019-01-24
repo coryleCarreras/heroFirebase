@@ -6,11 +6,7 @@
 .chatMessage{
     margin-bottom: 3px;
 }
-.chat-input{
-    position: fixed;
-    width: 25%;
-    height: 40px;
-}
+
 .chatContainer{
     margin-top: 10%;
 }
