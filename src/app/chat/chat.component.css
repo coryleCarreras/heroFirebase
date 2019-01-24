@@ -17,3 +17,12 @@
 .heroName{
     font-weight: bold;
 }
+.chatForm{
+    margin-top: 2%;
+}
+.chatInput{
+    width: 77%;
+}
+.btnChat{
+    width: 23%;
+}
