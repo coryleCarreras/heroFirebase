@@ -1,0 +1,19 @@
+.module-chat{
+    padding: 7px; 
+    border: .2rem solid #cedcea;
+    display: inline-block;
+}
+.chatMessage{
+    margin-bottom: 3px;
+}
+.chat-input{
+    position: fixed;
+    width: 25%;
+    height: 40px;
+}
+.chatContainer{
+    margin-top: 10%;
+}
+.heroName{
+    font-weight: bold;
+}

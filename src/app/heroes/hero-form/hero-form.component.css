@@ -1,0 +1,15 @@
+.btnStr{
+    background-color: #c34e35;
+}
+.btnAgi{
+    background-color: #3ada71;
+}
+.btnInt{
+    background-color: #455ae2;
+}
+.btnStat{
+    border-radius: 50% !important ;
+}
+.h2{
+    margin-left: 2% !important;  
+}

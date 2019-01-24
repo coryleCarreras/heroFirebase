@@ -1,0 +1,17 @@
+.size75{
+    width: 75%;
+}.size25{
+    width: 25%;
+}
+.inlined{
+    margin: 0;
+    display: inline-grid;
+}
+.flex{
+    width: auto;
+    display: flex;
+    margin: 0 2% 0 2%;
+}
+.h2{
+    margin-left: 2% !important;  
+}

@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="h2">Héros</h2>
+    <div *ngFor="let hero of heroes ; let i = index" class="basicContainerInline">
+      <div *ngIf="hero!==undefined"  class="list-group module-hero">
+        <span>
+          <h3 class="list-group-item-heading heroAttr h3">{{ hero?.name }} </h3>
+            <p class="list-group-item-text heroAttr stats">
+                  <span class="heroStr {{hero?.type}}">{{hero?.str}} <i *ngIf="hero?.type == 'str'" class="fas fa-fist-raised"></i></span> / 
+                  <span class="heroAgi {{hero?.type}}">{{hero?.agi}} <i *ngIf="hero?.type == 'agi'" class="fas fa-crow"></i></span> / 
+                  <span class="heroInt {{hero?.type}}">{{hero?.int}} <i *ngIf="hero?.type == 'int'" class="fas fa-brain"></i></span> stats
+            </p>
+            <button class="list-group-item btn inline" (click)="onViewHero(hero, i)">Détails</button>
+            <button *ngIf="hero?.idUser == this?.uid" class="btn btn-default pull-right btn-danger inline mrg" (click)="onDeleteHero(hero)">Supprimer</button>
+            <button *ngIf="hero?.idUser == this?.uid" class="btn btn-default pull-right btn-info inline mrg" (click)="trainHero(hero, i)">Entrainer</button>
+            <!-- <button *ngIf="hero?.idUser == this?.uid" class="btn btn-daner pull-right btn-warning inline mrg" (click)="explore(hero, i)">Explorer</button> -->
+        </span>
+      </div>
+      <div *ngIf="hero==undefined" class="noDisplay"></div>
+    </div><br>
+    <button class="btn btn-primary btnNew" (click)="onNewHero()">Nouveau Héro</button>
+  </div>
+</div>
