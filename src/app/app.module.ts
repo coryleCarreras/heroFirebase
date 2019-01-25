@@ -6,19 +6,21 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './auth/login/login.component';
-import { AuthService } from './auth/shared/auth.service';
-import { AuthGuardService } from './auth/shared/auth-guard.service';
-import { SignupComponent } from './auth/signup/signup.component';
+import { HeaderComponent } from './modules/header/header.component';
+import { LoginComponent } from './modules/auth/login/login.component';
+import { AuthService } from './modules/auth/shared/auth.service';
+import { AuthGuardService } from './modules/auth/shared/auth-guard.service';
+import { SignupComponent } from './modules/auth/signup/signup.component';
 
-import { HeroesListComponent } from './heroes/heroes-list/heroes-list.component';
-import { HeroDetailComponent } from './heroes/hero-detail/hero-detail.component';
-import { HeroFormComponent } from './heroes/hero-form/hero-form.component';
-import { HeroEditComponent } from './heroes/hero-edit/hero-edit.component';
+import { HeroesListComponent } from './modules/heroes/heroes-list/heroes-list.component';
+import { HeroDetailComponent } from './modules/heroes/hero-detail/hero-detail.component';
+import { HeroFormComponent } from './modules/heroes/hero-form/hero-form.component';
+import { HeroEditComponent } from './modules/heroes/hero-edit/hero-edit.component';
 
-import { TrainingComponent } from './heroes/heroes-actions/training/training.component';
-import { ChatComponent } from './chat/chat.component';
+import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
+import { ChatComponent } from './modules/chat/chat.component';
+import { StoreModule} from '@ngrx/store';
+import { getReducers, REDUCER_TOKEN } from './store';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { ChatComponent } from './chat/chat.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule, 
+    ReactiveFormsModule,
     
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyBt4qiZEj7soWOFuU5FgHNFTf8JGGrGLzs",
@@ -51,10 +55,9 @@ import { ChatComponent } from './chat/chat.component';
     }),
     AngularFireDatabaseModule,
 
-    FormsModule, 
-    ReactiveFormsModule,
+    StoreModule.forRoot(REDUCER_TOKEN)
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, {provide: REDUCER_TOKEN, useFactory: getReducers}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

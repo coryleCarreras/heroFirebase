@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Hero } from '../../shared/hero';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeroService } from '../../shared/hero.service';
-import { AuthService } from 'src/app/auth/shared/auth.service';
+import { AuthService } from 'src/app/modules/auth/shared/auth.service';
 
 @Component({
   selector: 'app-training',

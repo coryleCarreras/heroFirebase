@@ -1,0 +1,34 @@
+.module-chat{
+    padding: 7px; 
+    border: .2rem solid #cedcea;
+    display: inline-block;
+    overflow: auto;
+    height: 570px;
+}
+.chatMessage{
+    margin-bottom: 3px;
+}
+.chatTime{
+    font-style: italic;
+    font-weight: normal;
+}
+.chat-input{
+    position: fixed;
+    width: 25%;
+    height: 40px;
+}
+.chatContainer{
+    margin-top: 10%;
+}
+.heroName{
+    font-weight: bold;
+}
+.chatForm{
+    margin-top: 2%;
+}
+.chatInput{
+    width: 77%;
+}
+.btnChat{
+    width: 23%;
+}
