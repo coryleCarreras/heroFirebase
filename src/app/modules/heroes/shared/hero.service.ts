@@ -23,12 +23,10 @@ export class HeroService {
     this.heroesSubject.next(this.heroes);
   }
 
-  saveHeroes(uid: string, hid: number = null){   // Insère plusieurs héros
+  saveHeroes(uid: string, hid: string = null){   // Insère plusieurs héros
     if(!uid){
       if(hid== null){
-        firebase.database().ref('heroes').set(this.heroes);
-      }else{
-        firebase.database().ref('heroes/'+hid).set(this.heroes);
+        firebase.database().ref('heroes/'+hid+'/').set(this.heroes);
       }
     }else{
       firebase.database().ref('heroes').set(this.heroes);
@@ -37,12 +35,12 @@ export class HeroService {
 
   getHeroes(){    // Récupère une liste de héros
     firebase.database().ref('/heroes/').on('value', (data: DataSnapshot) => {
-      this.heroes = data.val() ? data.val() : []; 
+      this.heroes = data.val() ? data.val() : [];  
       this.emitHeroes();
     })
   }
 
-  getSingleHero(idH: number){    // récupère un héro par son id
+  getSingleHero(idH: string){    // récupère un héro par son id
     return new Promise(
         (resolve, reject) => {
           firebase.database().ref('/heroes/'+idH).once('value').then((data:DataSnapshot)=> {
@@ -64,12 +62,9 @@ export class HeroService {
     this.emitHeroes();
   }
 
-  updateHero(hero: Hero, uid: string, hid: number){
-    
-    this.heroes.splice(hid, 1);
-    this.heroes.push(hero);
+  updateHero(hero: Hero, uid: string, hid: string){
     this.saveHeroes(uid, hid);
-    this.emitHeroes();
+    this.emitHeroes(); 
   }
 
   removeHero(hero: Hero){

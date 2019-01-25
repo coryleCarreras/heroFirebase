@@ -13,7 +13,7 @@ export class TrainingComponent implements OnInit {
   private hero: Hero
 
   private idP: string;
-  private idH: number;
+  private idH: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private heroService: HeroService, private authService: AuthService) { }
 

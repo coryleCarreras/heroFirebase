@@ -17,6 +17,10 @@
     width: 25%;
     height: 40px;
 }
+.ds-input{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
 .chatContainer{
     margin-top: 10%;
 }
@@ -31,4 +35,10 @@
 }
 .btnChat{
     width: 23%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    vertical-align: bottom;
+}
+h3{
+    padding-left: 30px;
 }

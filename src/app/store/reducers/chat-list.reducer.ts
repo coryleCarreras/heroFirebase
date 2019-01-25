@@ -14,12 +14,20 @@ export function chatReducer(state: ChatListState = initialState, action: ChatLis
   switch (action.type) {
     // L'action de Initchats
     case ChatListModule.ActionTypes.INIT_CHAT :
-    return {
-        ...state,
-        data: [
-            ...ChatMock // Injecte le mock
-        ]
-    };
+        return {
+            ...state,
+            data: [
+                ...ChatMock // Injecte le mock
+            ]
+        };
+    case ChatListModule.ActionTypes.CREATE_CHAT:
+        return{
+            ...state,
+            data: [
+                ...state.data,
+                action.payload
+            ]
+        };
 
     default:
         return state;
