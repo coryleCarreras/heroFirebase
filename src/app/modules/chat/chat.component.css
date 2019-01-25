@@ -2,9 +2,15 @@
     padding: 7px; 
     border: .2rem solid #cedcea;
     display: inline-block;
+    overflow: auto;
+    height: 570px;
 }
 .chatMessage{
     margin-bottom: 3px;
+}
+.chatTime{
+    font-style: italic;
+    font-weight: normal;
 }
 .chat-input{
     position: fixed;

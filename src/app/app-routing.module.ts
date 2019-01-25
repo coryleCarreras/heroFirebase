@@ -1,14 +1,14 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes}  from '@angular/router';
 
-import { HeroDetailComponent }  from './heroes/hero-detail/hero-detail.component';
-import { HeroFormComponent }    from './heroes/hero-form/hero-form.component';
-import { HeroesListComponent }  from './heroes/heroes-list/heroes-list.component';
-import { SignupComponent }      from './auth/signup/signup.component';
-import { LoginComponent }       from './auth/login/login.component';
-import { AuthGuardService }     from './auth/shared/auth-guard.service';
-import { TrainingComponent } from './heroes/heroes-actions/training/training.component';
-import { HeroEditComponent }  from './heroes/hero-edit/hero-edit.component';
+import { HeroDetailComponent }  from './modules/heroes/hero-detail/hero-detail.component';
+import { HeroFormComponent }    from './modules/heroes/hero-form/hero-form.component';
+import { HeroesListComponent }  from './modules/heroes/heroes-list/heroes-list.component';
+import { SignupComponent }      from './modules/auth/signup/signup.component';
+import { LoginComponent }       from './modules/auth/login/login.component';
+import { AuthGuardService }     from './modules/auth/shared/auth-guard.service';
+import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
+import { HeroEditComponent }  from './modules/heroes/hero-edit/hero-edit.component';
 
 const routes: Routes = [
   { path: 'detail/:iduser/:idhero', component: HeroDetailComponent },
