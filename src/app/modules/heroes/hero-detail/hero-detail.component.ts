@@ -15,7 +15,7 @@ export class HeroDetailComponent implements OnInit {
   hero: Hero;
   private idP: string;
   private uid: string;
-  private idH: number;
+  private idH: string;
 
   constructor(private heroService: HeroService, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 
@@ -23,12 +23,13 @@ export class HeroDetailComponent implements OnInit {
     this.idP = this.route.snapshot.params['iduser'];
 
     this.uid = this.authService.getUid();
-
-    this.hero = new Hero('', '', '');
-    this.idH = this.route.snapshot.params['idhero'];
-    this.heroService.getSingleHero(this.idH).then((hero: Hero) =>{
-      this.hero = hero;
-    });
+    if(this.uid == this.idP){
+      this.hero = new Hero('', '', '');
+      this.idH = this.route.snapshot.params['idhero'];
+      this.heroService.getSingleHero(this.idH).then((hero: Hero) =>{
+        this.hero = hero;
+      });
+    }
   }
 
   onBack(){
@@ -41,6 +42,11 @@ export class HeroDetailComponent implements OnInit {
 
   editHero(hero: Hero){
     this.router.navigate(['edit', this.uid, this.idH]);
+  }
+             
+  onDeleteHero(hero:Hero){
+    this.heroService.removeHero(hero);
+    this.router.navigate(['list']);
   }
 
   // explore(hero: Hero, id: number){

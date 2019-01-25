@@ -1,5 +1,6 @@
 // Interface de la todo
 export interface Chat {
+    heroName: string;
 	userId: string;
 	id: number;
 	content: string;

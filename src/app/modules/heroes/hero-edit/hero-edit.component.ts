@@ -14,7 +14,7 @@ export class HeroEditComponent implements OnInit {
   heroForm: FormGroup;
   hero: Hero;
   uid: string;
-  idH: number;
+  idH: string;
 
   constructor(private heroService: HeroService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService) { 
     this.hero = new Hero('', '', '');
