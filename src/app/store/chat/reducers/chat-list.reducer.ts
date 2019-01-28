@@ -7,7 +7,8 @@ const initialState: ChatListState = {
     data: [],
     loading: false,
     loaded: false,
-    selectChat: undefined
+    selectChat: undefined,
+    logs: undefined
 };
 
 // la fonction reducer de la chat
@@ -27,15 +28,10 @@ export function chatsReducer(state: ChatListState = initialState, action: ChatLi
 	        	...state,
 	        	loading: false,
 	        	loaded: true,
-	        	data: action.payload
-	        };
-
-        case ChatListModule.ActionTypes.ERROR_INIT_CHATS:
-	        // Error rend le loading a false
-	        return {
-	        	...state,
-	        	loading: false
+                data: action.payload,
+                logs: { type: 'Success', message:"Chat supprimé" }
             };
+            
         case ChatListModule.ActionTypes.LOAD_CREATE_CHAT:
             // Passe le loading a true
             return {
@@ -51,14 +47,8 @@ export function chatsReducer(state: ChatListState = initialState, action: ChatLi
                 data: [
                     ...state.data,
                     action.payload
-                ]
-            };
-    
-        case ChatListModule.ActionTypes.ERROR_CREATE_CHAT:
-            // Passe le loading a false
-            return {
-                ...state,
-                loading: false
+                ],
+                logs: { type: 'Success', message:"Chat créé" }
             };
 
         case ChatListModule.ActionTypes.DELETE_CHAT:
@@ -73,12 +63,25 @@ export function chatsReducer(state: ChatListState = initialState, action: ChatLi
                 selectChat: action.payload
             };
             
-        case ChatListModule.ActionTypes.UPDATE_CHAT:
+        case ChatListModule.ActionTypes.LOAD_UPDATE_CHAT:
             return{
                 ...state,
-                data: state.data.map(chat => action.payload.id === chat.id ? action.payload: chat)
+                loading: true
             };
         
+        case ChatListModule.ActionTypes.SUCCESS_UPDATE_CHAT:
+            return{
+                ...state,
+                data: state.data.map(chat => action.payload.id === chat.id ? action.payload: chat),
+                logs: { type: 'Success', message:"Chat mis à jour" }
+            };
+    
+        case ChatListModule.ActionTypes.ERROR_LOAD_ACTION:
+            return{
+                ...state,
+                loading: false
+            };
+    
     default:
         return state;
     }

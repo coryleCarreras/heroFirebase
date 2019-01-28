@@ -20,6 +20,7 @@
     ],
     "paths":{
       "@Models/*": ["app/models/*"],
+      "@Modules/*": ["app/modules/*"],
       "@StoreConfig": ["app/store/index.ts"],
 	    "@Actions/*": ["app/store/actions/*"],
 	    "@Reducers/*": ["app/store/reducers/*"],

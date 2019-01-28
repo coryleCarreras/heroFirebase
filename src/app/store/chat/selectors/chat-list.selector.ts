@@ -8,7 +8,10 @@ export const selectChatListState$ = (state: AppState) =>  state.chat;
 export const selectChats$ = createSelector(selectChatListState$,(chats) =>  chats.data);
 
 export  const  selectChatsLoading$ =
-	createSelector(selectChatListState$,(chats) =>  chats.loading);
+	createSelector(selectChatListState$,(chats) => chats.loading);
 	
 export  const  selectChatsLoaded$ =
-	createSelector(selectChatListState$,(chats) =>  chats.loaded);
+	createSelector(selectChatListState$,(chats) => chats.loaded);
+
+export const selectChatError$ = 
+	createSelector(selectChatListState$,(chats) => chats.logs);

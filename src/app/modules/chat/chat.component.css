@@ -1,9 +1,10 @@
 .module-chat{
     padding: 7px; 
+    margin: 10px;
     border: .2rem solid #cedcea;
     display: inline-block;
     overflow: auto;
-    height: 570px;
+    height: 550px;
     width: 100%;
 }
 .chatMessage{
@@ -40,6 +41,6 @@
     border-bottom-left-radius: 0;
     vertical-align: bottom;
 }
-h3{
+h2{
     padding-left: 30px;
 }

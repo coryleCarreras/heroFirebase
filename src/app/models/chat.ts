@@ -13,4 +13,8 @@ export interface ChatListState {
 	loading: boolean;
 	loaded: boolean;
 	selectChat: Chat;
+    logs: {
+        type: string;
+        message: string;
+    };
 }

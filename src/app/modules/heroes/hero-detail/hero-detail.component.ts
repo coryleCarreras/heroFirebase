@@ -23,13 +23,11 @@ export class HeroDetailComponent implements OnInit {
     this.idP = this.route.snapshot.params['iduser'];
 
     this.uid = this.authService.getUid();
-    if(this.uid == this.idP){
-      this.hero = new Hero('', '', '');
-      this.idH = this.route.snapshot.params['idhero'];
-      this.heroService.getSingleHero(this.idH).then((hero: Hero) =>{
-        this.hero = hero;
-      });
-    }
+    this.hero = new Hero('', '', '');
+    this.idH = this.route.snapshot.params['idhero'];
+    this.heroService.getSingleHero(this.idH).then((hero: Hero) =>{
+      this.hero = hero;
+    });
   }
 
   onBack(){

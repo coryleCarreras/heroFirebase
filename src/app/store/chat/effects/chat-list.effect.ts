@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ChatListModule } from '../actions/chat-list.action';
-import { ChatListService } from '@Services/chat/chat-list.service';
+import { ChatListService } from '@Modules/chat/services/chat-list.service';
 import { Actions, Effect, ofType } from '@NGRX/effects';
 import { catchError, map, switchMap } from 'rxjs/operators'
 

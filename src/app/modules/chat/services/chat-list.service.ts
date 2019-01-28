@@ -13,10 +13,15 @@ export class ChatListService {
   }
 
   createChat(body): Observable<Chat> {
+    console.log(this.http.post<Chat>(`${environment.apiUrl}/chats`, body));
     return this.http.post<Chat>(`${environment.apiUrl}/chats`, body);
   }
   
   getChats(): Observable<Chat[]>{
     return this.http.get<Chat[]>(`${environment.apiUrl}/chats`);
+  }
+
+  patchChat(changes: Partial<Chat>, id: string): Observable<Chat> {
+    return this.http.patch<Chat>(`${environment.apiUrl}/chats/${id}`, changes);
   }
 }

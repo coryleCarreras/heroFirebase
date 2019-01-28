@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { ChatListModule } from './../../store/chat/actions/chat-list.action';
 import { AppState } from '../../store/chat';
 import { Chat } from './../../models/chat';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { map } from 'rxjs/operators'
 import { selectChats$, selectChatsLoading$ } from  '../../store/chat/selectors/chat-list.selector';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,7 +29,7 @@ export class ChatComponent implements OnInit {
 
   constructor(private store: Store<AppState>, @Inject(FormBuilder) fb: FormBuilder, private route: ActivatedRoute, 
               private router: Router, private auth: AuthService, /*private chatListService: ChatListService*/){
-    this.chat$ = this.store.select(selectChats$);
+    this.chat$ = this.store.pipe(select(selectChats$),);
 
     this.chatForm = fb.group({
         content: ['', Validators.required]
@@ -43,7 +44,7 @@ export class ChatComponent implements OnInit {
     this.store.dispatch(new ChatListModule.LoadInitChats())
   }
 
-  sendMessage(chat: Chat){
+  createChat(chat: Chat){
     const idP = this.auth.getUid();
 
     var m = new Date();
@@ -52,12 +53,12 @@ export class ChatComponent implements OnInit {
     const payload = {
       ...chat,
       userId: idP,
-      //id: UUID.UUID(),
       date: dateString,
     };
-    console.log(payload);
     this.store.dispatch(new ChatListModule.LoadCreateChat(payload));
 
+    console.log(payload);
+    console.log(this.store);
     this.chatForm.reset();
   }
 

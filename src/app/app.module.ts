@@ -10,7 +10,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AuthService } from './modules/auth/shared/auth.service';
 import { AuthGuardService } from './modules/auth/shared/auth-guard.service';
-import { ChatListService } from './services/chat/chat-list.service'
+import { ChatListService } from '@Modules/chat/services/chat-list.service';
 
 import { HeaderComponent } from './modules/header/header.component';
 import { LoginComponent } from './modules/auth/login/login.component';
@@ -21,10 +21,12 @@ import { HeroFormComponent } from './modules/heroes/hero-form/hero-form.componen
 import { HeroEditComponent } from './modules/heroes/hero-edit/hero-edit.component';
 import { ChatComponent } from './modules/chat/chat.component';
 import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
+import { IsChatLoadedGuard } from './guards/is-chat-loaded/is-chat-loaded.guard';
 
 import { appEffects, getReducers, REDUCER_TOKEN } from './store/chat';
 import { StoreModule} from '@ngrx/store';
 import { EffectsModule, Effect, Actions } from '@ngrx/effects'
+import { environment } from '@Env/environment';
 
 @NgModule({
   declarations: [ 
@@ -61,9 +63,10 @@ import { EffectsModule, Effect, Actions } from '@ngrx/effects'
 
     HttpClientModule,
     StoreModule.forRoot(REDUCER_TOKEN),
+   
    //EffectsModule.forRoot(appEffects)
   ],
-  providers: [AuthService, AuthGuardService, ChatListService, {provide: REDUCER_TOKEN, useFactory: getReducers}],
+  providers: [AuthService, AuthGuardService, ChatListService, IsChatLoadedGuard, {provide: REDUCER_TOKEN, useFactory: getReducers}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

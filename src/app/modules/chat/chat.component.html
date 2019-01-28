@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-      <h3>Global chat</h3>
+      <h2>Global chat</h2>
       <div class="module-chat">
         <ul>
             <li *ngFor="let chat of chat$ | async">
@@ -11,11 +11,11 @@
             </li>
         </ul>
       </div>
-      <form [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value)" class="bd-search d-flex align-items-center chatForm">
+      <form [formGroup]="chatForm" (ngSubmit)="createChat(chatForm.value)" class="bd-search d-flex align-items-center chatForm">
           <span class="algolia-autocomplete chatInput" style="position: relative; display: inline-block; direction: ltr;">
               <input type="text" formControlName="content" class="form-control ds-input" id="chat-input" placeholder="Type your message here">
           </span>
-          <button type="button" class="btn btn-outline-primary btnChat" (click)="sendMessage(chatForm.value)">Send</button> 
+          <button type="button" class="btn btn-outline-primary btnChat" (click)="createChat(chatForm.value)">Send</button> 
       </form>
 
     </div>
