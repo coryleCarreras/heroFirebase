@@ -2,7 +2,7 @@
 export interface Chat {
     heroName: string;
 	userId: string;
-	id: number;
+	id: string;
 	content: string;
 	date: string;
 }
@@ -12,4 +12,5 @@ export interface ChatListState {
 	data: Chat[];
 	loading: boolean;
 	loaded: boolean;
+	selectChat: Chat;
 }

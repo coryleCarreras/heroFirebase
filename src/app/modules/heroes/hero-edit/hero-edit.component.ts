@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../shared/hero';
 import { HeroService } from '../shared/hero.service';
-import { AuthService } from 'src/app/modules/auth/shared/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'app/modules/auth/shared/auth.service';
 
 @Component({
   selector: 'app-hero-edit',

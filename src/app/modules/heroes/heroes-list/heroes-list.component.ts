@@ -4,7 +4,7 @@ import { HeroService } from '../shared/hero.service';
 import { Hero } from '../shared/hero';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/modules/auth/shared/auth.service';
+import { AuthService } from 'app/modules/auth/shared/auth.service';
 
 @Component({
   selector: 'app-heroes-list',

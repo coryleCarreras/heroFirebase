@@ -3,27 +3,31 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { HeaderComponent } from './modules/header/header.component';
-import { LoginComponent } from './modules/auth/login/login.component';
+
 import { AuthService } from './modules/auth/shared/auth.service';
 import { AuthGuardService } from './modules/auth/shared/auth-guard.service';
-import { SignupComponent } from './modules/auth/signup/signup.component';
+import { ChatListService } from './services/chat/chat-list.service'
 
+import { HeaderComponent } from './modules/header/header.component';
+import { LoginComponent } from './modules/auth/login/login.component';
+import { SignupComponent } from './modules/auth/signup/signup.component';
 import { HeroesListComponent } from './modules/heroes/heroes-list/heroes-list.component';
 import { HeroDetailComponent } from './modules/heroes/hero-detail/hero-detail.component';
 import { HeroFormComponent } from './modules/heroes/hero-form/hero-form.component';
 import { HeroEditComponent } from './modules/heroes/hero-edit/hero-edit.component';
-
-import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
 import { ChatComponent } from './modules/chat/chat.component';
+import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
+
+import { appEffects, getReducers, REDUCER_TOKEN } from './store/chat';
 import { StoreModule} from '@ngrx/store';
-import { getReducers, REDUCER_TOKEN } from './store';
+import { EffectsModule, Effect, Actions } from '@ngrx/effects'
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     AppComponent,
 
     HeaderComponent,
@@ -55,9 +59,11 @@ import { getReducers, REDUCER_TOKEN } from './store';
     }),
     AngularFireDatabaseModule,
 
-    StoreModule.forRoot(REDUCER_TOKEN)
+    HttpClientModule,
+    StoreModule.forRoot(REDUCER_TOKEN),
+   //EffectsModule.forRoot(appEffects)
   ],
-  providers: [AuthService, AuthGuardService, {provide: REDUCER_TOKEN, useFactory: getReducers}],
+  providers: [AuthService, AuthGuardService, ChatListService, {provide: REDUCER_TOKEN, useFactory: getReducers}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

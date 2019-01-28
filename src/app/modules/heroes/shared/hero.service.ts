@@ -26,7 +26,9 @@ export class HeroService {
   saveHeroes(uid: string, hid: string = null){   // Insère plusieurs héros
     if(!uid){
       if(hid== null){
-        firebase.database().ref('heroes/'+hid+'/').set(this.heroes);
+        firebase.database().ref('heroes/').set(this.heroes);
+      }else{
+        firebase.database().ref('heroes/'+hid).set(this.heroes);
       }
     }else{
       firebase.database().ref('heroes').set(this.heroes);
@@ -63,8 +65,11 @@ export class HeroService {
   }
 
   updateHero(hero: Hero, uid: string, hid: string){
+    
+    //this.heroes.splice(hid, 1);
+    //this.heroes.push(hero);
     this.saveHeroes(uid, hid);
-    this.emitHeroes(); 
+    this.emitHeroes();
   }
 
   removeHero(hero: Hero){

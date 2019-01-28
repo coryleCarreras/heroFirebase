@@ -4,6 +4,7 @@
     display: inline-block;
     overflow: auto;
     height: 570px;
+    width: 100%;
 }
 .chatMessage{
     margin-bottom: 3px;

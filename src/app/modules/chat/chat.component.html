@@ -6,6 +6,8 @@
             <li *ngFor="let chat of chat$ | async">
                 <label><span class="chatTime">{{chat.date}} by</span> {{ chat.heroName }}</label>
                 <p class="chatMessage">{{chat.content}}</p>
+                <!-- <button (click)="deleteChat(chat.id)">Supprimer</button> -->
+                <!-- <button (click)="selectChat(chat)">Modifier</button> -->
             </li>
         </ul>
       </div>
