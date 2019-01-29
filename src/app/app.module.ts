@@ -19,8 +19,6 @@ import { HeroEditComponent } from './modules/heroes/hero-edit/hero-edit.componen
 
 import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
 import { ChatComponent } from './modules/chat/chat.component';
-import { StoreModule} from '@ngrx/store';
-import { getReducers, REDUCER_TOKEN } from './store';
 
 @NgModule({
   declarations: [
@@ -55,9 +53,8 @@ import { getReducers, REDUCER_TOKEN } from './store';
     }),
     AngularFireDatabaseModule,
 
-    StoreModule.forRoot(REDUCER_TOKEN)
   ],
-  providers: [AuthService, AuthGuardService, {provide: REDUCER_TOKEN, useFactory: getReducers}],
+  providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
