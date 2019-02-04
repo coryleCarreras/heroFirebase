@@ -23,6 +23,7 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ChatService } from './modules/chat/chat-service';
 import { WebsocketService } from './modules/chat/websocket-service.service'
 
+import { FriendService } from './modules/heroes/shared/friend.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:4201', options: {} };
 

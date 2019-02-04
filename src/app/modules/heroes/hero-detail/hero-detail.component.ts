@@ -4,6 +4,7 @@ import { Hero } from '../shared/hero';
 import { HeroService } from '../shared/hero.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/shared/auth.service';
+import { FriendService } from '../shared/friend.service';
 
 @Component({
   selector: 'app-hero-detail',
@@ -12,24 +13,20 @@ import { AuthService } from 'src/app/modules/auth/shared/auth.service';
 })
 export class HeroDetailComponent implements OnInit {
 
-  hero: Hero;
+  hero: Hero[] = [];
   private idP: string;
   private uid: string;
-  private idH: string;
 
-  constructor(private heroService: HeroService, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private heroService: HeroService, private authService: AuthService, private friendService: FriendService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.idP = this.route.snapshot.params['iduser'];
 
     this.uid = this.authService.getUid();
-    if(this.uid == this.idP){
-      this.hero = new Hero('', '', '');
-      this.idH = this.route.snapshot.params['idhero'];
-      this.heroService.getSingleHero(this.idH).then((hero: Hero) =>{
-        this.hero = hero;
-      });
-    }
+    this.heroService.getSingleHero(this.idP).then((hero: Hero) =>{
+      this.hero.push(hero);
+    });
+    //console.log(this.hero);
   }
 
   onBack(){
@@ -37,11 +34,15 @@ export class HeroDetailComponent implements OnInit {
   }
 
   trainHero(hero: Hero){
-    this.router.navigate(['train', this.uid, this.idH]);
+    this.router.navigate(['train', this.uid]);
   }
 
   editHero(hero: Hero){
-    this.router.navigate(['edit', this.uid, this.idH]);
+    this.router.navigate(['edit', this.uid]);
+  }
+
+  addFriend(){
+    this.friendService.addFriend(this.idP, this.uid);
   }
              
   onDeleteHero(hero:Hero){
