@@ -4,6 +4,8 @@
     display: inline-block;
     overflow: auto;
     height: 570px;
+    width: 100%;
+    position: relative;
 }
 .chatMessage{
     margin-bottom: 3px;
@@ -41,4 +43,7 @@
 }
 h3{
     padding-left: 30px;
+}
+ul{
+    padding-left: 15px;
 }

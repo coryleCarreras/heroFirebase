@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
     
     this.authService.createUser(email, password).then(
       () => {
-        this.router.navigate(['/list']);
+        this.router.navigate(['/form']);
       },
       (error) => {
         this.errorMessage = error;

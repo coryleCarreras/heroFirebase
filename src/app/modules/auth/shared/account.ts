@@ -1,10 +1,20 @@
+import { Hero } from '../../heroes/shared/hero'
+
 export class Account {
-    key: string;
-    name: string;
+    idUser: string;
     displayName: string;
-    mail: string;
-    password: string;
-    role: string;
-    creationDate: Date;
-    lastLogIn: Date;
+    email: string;
+    role: string = 'user' ;
+    creationDate: string;
+    hero: Hero
+
+    constructor(email: string, userId: string, createDate: string){
+        this.idUser = userId;
+        this.email = email;
+        this.creationDate = createDate;
+    }
+
+    addHero(hero: Hero){
+        this.hero = hero ;
+    }
 }

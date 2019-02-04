@@ -10,38 +10,37 @@ import { AuthService } from 'src/app/modules/auth/shared/auth.service';
   styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
-  private hero: Hero
+  hero: Hero ;
 
+  private uid: string;
   private idP: string;
   private idH: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private heroService: HeroService, private authService: AuthService) { }
 
   ngOnInit() {
-    
-    if(this.authService.getUid() != this.route.snapshot.params['iduser']){
-      this.router.navigate(['list']);
-    }
-
-
     this.idP = this.route.snapshot.params['iduser'];
-    this.hero = new Hero('', '', '');
-    this.idH = this.route.snapshot.params['idhero'];
-    this.heroService.getSingleHero(this.idH).then((hero: Hero) =>{
-      this.hero = hero;
+
+    this.uid = this.authService.getUid();
+    this.heroService.getSingleHero(this.idP).then((hero: Hero) =>{
+      this.hero = new Hero(hero[0].name, hero[0].type, hero[0].idUser);
+      this.hero.agi = hero[0].agi;
+      this.hero.str = hero[0].str;
+      this.hero.int = hero[0].int;
+      console.log(this.hero);
     });
   }
 
   train(statTrained: string){
     switch(statTrained){
       case 'str': 
-          this.hero.str ++ ;
+          this.hero.newStats(true, false, false);
           break;
       case 'int': 
-          this.hero.int ++ ;
+          this.hero.newStats(false, true, false);
           break;
       case 'agi': 
-          this.hero.agi ++ ;
+          this.hero.newStats(false, false, true);
           break;
     }
 
@@ -49,7 +48,7 @@ export class TrainingComponent implements OnInit {
   }
 
   applyTraining(){ 
-    this.heroService.updateHero(this.hero, this.idP, this.idH);
+    this.heroService.updateHero(this.hero, this.idP);
   }
 
   onBack(){

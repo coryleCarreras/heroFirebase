@@ -16,11 +16,17 @@ import { HeroesListComponent } from './modules/heroes/heroes-list/heroes-list.co
 import { HeroDetailComponent } from './modules/heroes/hero-detail/hero-detail.component';
 import { HeroFormComponent } from './modules/heroes/hero-form/hero-form.component';
 import { HeroEditComponent } from './modules/heroes/hero-edit/hero-edit.component';
-
 import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
-import { ChatComponent } from './modules/chat/chat.component';
 
-@NgModule({
+import { ChatComponent } from './modules/chat/chat.component';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { ChatService } from './modules/chat/chat-service';
+import { WebsocketService } from './modules/chat/websocket-service.service'
+
+
+const config: SocketIoConfig = { url: 'http://localhost:4201', options: {} };
+
+@NgModule({ 
   declarations: [
     AppComponent,
 
@@ -52,9 +58,10 @@ import { ChatComponent } from './modules/chat/chat.component';
       messagingSenderId: "739594881383"
     }),
     AngularFireDatabaseModule,
+    SocketIoModule.forRoot(config) 
 
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, ChatService, FriendService, WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

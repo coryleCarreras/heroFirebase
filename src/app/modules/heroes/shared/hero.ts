@@ -20,4 +20,16 @@ export class Hero {
     updateType(newType: string){
         this.type = newType;
     }
+
+    newStats(str: boolean, int: boolean, agi: boolean){
+        if(str){
+            this.str++;
+        }
+        if(int){
+            this.int++;
+        }
+        if(agi){
+            this.agi++;
+        } 
+    }
 }

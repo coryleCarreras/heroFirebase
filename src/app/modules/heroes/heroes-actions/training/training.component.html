@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-xs-12">
         <span class="module-hero">
-          <h2 class="list-group-item-heading heroAttr h2">{{ hero?.name }} </h2>
+          <h2 class="list-group-item-heading heroAttr h2">{{ this.hero?.name }} </h2>
             <p class="list-group-item-text heroAttr stats">
-                  <span class="heroStr {{hero?.type}}">{{hero?.str}} <i *ngIf="hero?.type == 'str'" class="fas fa-fist-raised"></i></span> / 
-                  <span class="heroAgi {{hero?.type}}">{{hero?.agi}} <i *ngIf="hero?.type == 'agi'" class="fas fa-crow"></i></span> / 
-                  <span class="heroInt {{hero?.type}}">{{hero?.int}} <i *ngIf="hero?.type == 'int'" class="fas fa-brain"></i></span> stats
+                  <span class="heroStr {{this.hero?.type}}">{{this.hero?.str}} <i *ngIf="this.hero?.type == 'str'" class="fas fa-fist-raised"></i></span> / 
+                  <span class="heroAgi {{this.hero?.type}}">{{this.hero?.agi}} <i *ngIf="this.hero?.type == 'agi'" class="fas fa-crow"></i></span> / 
+                  <span class="heroInt {{this.hero?.type}}">{{this.hero?.int}} <i *ngIf="this.hero?.type == 'int'" class="fas fa-brain"></i></span> stats
             </p>
             <div class="text-center">
                 <button class="btn btn-default btn-success inline mrg" (click)="train('agi')"><i class="fas fa-crow"></i> Courir sur un tapis roulant</button>

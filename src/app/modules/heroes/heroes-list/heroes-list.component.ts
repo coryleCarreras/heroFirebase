@@ -5,6 +5,7 @@ import { Hero } from '../shared/hero';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/shared/auth.service';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-heroes-list',
@@ -13,23 +14,47 @@ import { AuthService } from 'src/app/modules/auth/shared/auth.service';
 })
 export class HeroesListComponent implements OnInit, OnDestroy {
 
-  heroes: Hero[];
+  heroes: any[];
   heroesSubscription: Subscription;
   private uid: string
+  key: string[];
+
   constructor(private heroService: HeroService, private router: Router, private authService: AuthService) {
-    
+    this.heroes = [[0]];
+   // this.heroes.unshift()
   }
 
   ngOnInit() {
     this.uid = this.authService.getUid();
+    this.heroService.getHeroes();
     this.heroesSubscription = this.heroService.heroesSubject.subscribe(
       (heroes: Hero[])=>{
-        this.heroes = heroes;
-      }
+        this.heroes.unshift(heroes)
+      }      
     );
     this.heroService.emitHeroes();
+    
+    this.sortThisHeroes();
     //console.log(this.heroes);
-    //console.log(this.uid);
+    // console.log(this.heroes[0]);
+    this.canUserCreateHero();
+  }
+  
+  sortThisHeroes(){
+    var i = 0, j = 0;
+    this.key = []
+    for (var prop in this.heroes[0]) {
+      this.key[j] = prop
+      for(var p in this.heroes[0][prop]){
+        
+        // console.log(this.heroes[0][prop][p]);
+        i++;
+      }
+      j++;
+    }
+    // console.log(this.key);
+    // console.log(this.heroes[0][this.key[0]][0]);
+    // console.log(this.heroes[0][this.key[1]][0]);
   }
 
   onNewHero(){
@@ -38,24 +63,25 @@ export class HeroesListComponent implements OnInit, OnDestroy {
              
   onDeleteHero(hero:Hero){
     this.heroService.removeHero(hero);
+    this.router.navigate(['']);
   }
              
   onEdit(hero:Hero, idHero: number){
-    console.log(hero);
+    // console.log(hero);
     this.router.navigate(['edit', hero.idUser, idHero]);
   }
 
-  onViewHero(hero:Hero, idHero: number){
-    this.router.navigate(['detail', hero.idUser, idHero]);
+  onViewHero(hero:Hero){
+    this.router.navigate(['detail', hero.idUser]);
   }
 
-  trainHero(hero: Hero, id: number){
-    this.router.navigate(['train', hero.idUser, id]);
+  trainHero(hero: Hero){
+    this.router.navigate(['train', hero.idUser]);
   }
 
-  // explore(hero: Hero, id: number){
-  //   this.router.navigate(['explore', hero.idUser, id]);
-  // }
+  canUserCreateHero(){
+    // this.heroService.getSingleHero(this.authService.getUid())
+  }
 
   ngOnDestroy(){
     this.heroesSubscription.unsubscribe();

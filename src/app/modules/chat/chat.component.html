@@ -3,17 +3,20 @@
       <h3>Global chat</h3>
       <div class="module-chat">
         <ul>
-            <li *ngFor="let chat of chat$ | async">
-                <label><span class="chatTime">{{chat.date}} by</span> {{ chat.heroName }}</label>
-                <p class="chatMessage">{{chat.content}}</p>
+            <li *ngFor="let chat of chatStorm ; let i = index">
+                <div *ngIf="chat">
+                    <label><span class="chatTime">{{chat?.date}} by</span> {{ chat?.name }}</label>
+                    <p class="chatMessage">{{chat?.content}}</p>
+                </div>
             </li>
         </ul>
       </div>
-      <form [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value)" class="bd-search d-flex align-items-center chatForm">
+      <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="bd-search d-flex align-items-center chatForm">
           <span class="algolia-autocomplete chatInput" style="position: relative; display: inline-block; direction: ltr;">
               <input type="text" formControlName="content" class="form-control ds-input" id="chat-input" placeholder="Type your message here">
           </span>
-          <button type="button" class="btn btn-outline-primary btnChat" (click)="sendMessage(chatForm.value)">Send</button> 
+          <button *ngIf="ezf" type="button" class="btn btn-outline-primary btnChat" (click)="sendMessage()">Send</button> 
+          <button type="button" class="btn btn-outline-primary btnChat" (click)="sendMessage()">Send</button> 
       </form>
 
     </div>

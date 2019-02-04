@@ -16,34 +16,28 @@ export class HeroService {
   heroesSubject = new Subject<Hero[]>();
 
   constructor(){
-    this.getHeroes();
+    //this.getHeroes();
   }
 
   emitHeroes(){   
     this.heroesSubject.next(this.heroes);
   }
 
-  saveHeroes(uid: string, hid: string = null){   // Insère plusieurs héros
-    if(!uid){
-      if(hid== null){
-        firebase.database().ref('heroes/'+hid+'/').set(this.heroes);
-      }
-    }else{
-      firebase.database().ref('heroes').set(this.heroes);
-    }
+  saveHeroes(uid: string){ 
+    firebase.database().ref('hero/'+uid).set(this.heroes);
   }
 
   getHeroes(){    // Récupère une liste de héros
-    firebase.database().ref('/heroes/').on('value', (data: DataSnapshot) => {
-      this.heroes = data.val() ? data.val() : [];  
+    firebase.database().ref('/hero/').on('value', (data: DataSnapshot) => {
+      this.heroes = data.val() ? data.val() : []; 
       this.emitHeroes();
     })
   }
 
-  getSingleHero(idH: string){    // récupère un héro par son id
+  getSingleHero(uid: string){    // récupère un héro par son id
     return new Promise(
         (resolve, reject) => {
-          firebase.database().ref('/heroes/'+idH).once('value').then((data:DataSnapshot)=> {
+          firebase.database().ref('/hero/'+uid+'/0').once('value').then((data:DataSnapshot)=> {
                   //console.log(data.val());
                   resolve(data.val());
               }, (error) =>{
@@ -57,26 +51,26 @@ export class HeroService {
   }
 
   createNewHero(newHero: Hero, uid: string){
-    this.heroes.push(newHero);
+    // console.log(this.heroes)
+    // this.heroes = [newHero, ...this.heroes];
+    this.heroes = []; 
+    this.heroes.unshift(newHero);
+    this.heroes.splice(1, (this.heroes.length-1));
     this.saveHeroes(uid);
     this.emitHeroes();
   }
 
-  updateHero(hero: Hero, uid: string, hid: string){
-    this.saveHeroes(uid, hid);
+  updateHero(hero: Hero, uid: string){
+    this.heroes = []; 
+    this.heroes.unshift(hero)
+    this.heroes.splice(1, this.heroes.length-1);
+    this.saveHeroes(uid);
     this.emitHeroes(); 
   }
 
   removeHero(hero: Hero){
-    const heroId = this.heroes.findIndex(
-      (heroEl) => {
-        if(heroEl === hero){
-          return true;
-        }
-      }
-    );
-    this.heroes.splice(heroId, 1);
-    this.saveHeroes(null);
+    this.heroes[hero.idUser] = null ;
+    this.saveHeroes('');
     this.emitHeroes();
   }
   

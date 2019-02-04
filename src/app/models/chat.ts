@@ -1,10 +1,14 @@
 // Interface de la todo
-export interface Chat {
-    heroName: string;
-	userId: string;
-	id: number;
+export class Chat {
+	name: string;
 	content: string;
 	date: string;
+
+	constructor(name: string, content: string, date: string){
+		this.name = name
+		this.content = content
+		this.date = date
+	}
 }
 
 // Interface de notre futur state de todos

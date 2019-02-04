@@ -45,7 +45,7 @@ export class HeroEditComponent implements OnInit {
     this.hero.type = type;
     this.hero.idUser = this.uid;
 
-    this.heroService.updateHero(this.hero, this.uid, this.idH);
+    this.heroService.updateHero(this.hero, this.uid);
     this.router.navigate(['detail', this.uid, this.idH]);
   }
 }
