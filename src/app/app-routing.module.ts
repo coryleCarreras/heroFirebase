@@ -6,16 +6,18 @@ import { HeroFormComponent }    from './modules/heroes/hero-form/hero-form.compo
 import { HeroesListComponent }  from './modules/heroes/heroes-list/heroes-list.component';
 import { SignupComponent }      from './modules/auth/signup/signup.component';
 import { LoginComponent }       from './modules/auth/login/login.component';
-import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
-import { HeroEditComponent }  from './modules/heroes/hero-edit/hero-edit.component';
+import { TrainingComponent }    from './modules/heroes/heroes-actions/training/training.component';
+import { HeroEditComponent }    from './modules/heroes/hero-edit/hero-edit.component';
 import { AuthGuardService }     from './modules/auth/shared/auth-guard.service';
-import { CanCreateHeroGuard }     from './modules/heroes/hero-form/can-create-hero.guard';
+import { CanCreateHeroGuard }   from './modules/heroes/hero-form/can-create-hero.guard';
+import { FriendsComponent }     from './modules/friends/friends.component';
 
 const routes: Routes = [
   { path: 'detail/:iduser', component: HeroDetailComponent },
   { path: 'train/:iduser', canActivate:[AuthGuardService], component: TrainingComponent },
   { path: 'edit/:iduser', canActivate:[AuthGuardService], component: HeroEditComponent },
   { path: 'form', canActivate:[AuthGuardService, CanCreateHeroGuard], component: HeroFormComponent }, // Gaffe aux '/' et autres
+  { path: 'friends', canActivate:[AuthGuardService], component: FriendsComponent },
   { path: 'list', component: HeroesListComponent },
   { path: 'signin', component: LoginComponent },
   { path: 'signup', component: SignupComponent },

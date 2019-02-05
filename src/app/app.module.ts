@@ -24,6 +24,8 @@ import { ChatService } from './modules/chat/chat-service';
 import { WebsocketService } from './modules/chat/websocket-service.service'
 
 import { FriendService } from './modules/heroes/shared/friend.service';
+import { FriendsComponent } from './modules/friends/friends.component';
+import { FriendListComponent } from './modules/friends/friend-list.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4201', options: {} };
 
@@ -43,6 +45,9 @@ const config: SocketIoConfig = { url: 'http://localhost:4201', options: {} };
     TrainingComponent,
   
     ChatComponent,
+  
+    FriendsComponent,
+    FriendListComponent,
   ], 
   imports: [
     BrowserModule,

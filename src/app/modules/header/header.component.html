@@ -18,6 +18,9 @@
       </li>
       
       <li routerLinkActive="active" *ngIf="isAuth">
+        <a routerLink="friends">Amis</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="isAuth">
         <a (click)="onSignOut()">Déconnexion</a>
       </li>
     </ul>

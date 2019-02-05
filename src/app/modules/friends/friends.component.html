@@ -1,0 +1,19 @@
+<div>
+  <h2>My friendlist</h2>
+  <div *ngFor="let f of friends ; let i = index"  class="basicContainerInline">
+      <div *ngIf="f[i] != null" class="list-group module-hero">
+          <span>
+            <h3 class="list-group-item-heading heroAttr h3">{{ this.heroes[i]?.name }}</h3> 
+              <p class="list-group-item-text heroAttr stats">
+                    <span class="heroStr {{ this.heroes[i]?.type }}">{{ this.heroes[i]?.str }} <i *ngIf="this.heroes[i]?.type == 'str'" class="fas fa-fist-raised"></i></span> / 
+                    <span class="heroAgi {{ this.heroes[i]?.type }}">{{ this.heroes[i]?.agi }} <i *ngIf="this.heroes[i]?.type == 'agi'" class="fas fa-crow"></i></span> / 
+                    <span class="heroInt {{ this.heroes[i]?.type }}">{{ this.heroes[i]?.int }} <i *ngIf="this.heroes[i]?.type == 'int'" class="fas fa-brain"></i></span> stats
+              </p>
+              <button  class="btn btn-default pull-right btn-danger inline" (click)="deleteFriend(this.heroes[i]?.idUser)">Supprimer cet ami</button>
+              <button  class="btn btn-default pull-right btn-info inline mrg" (click)="viewFriend(this.heroes[i]?.idUser)">Regarder le héros</button>
+          </span>
+        </div>
+  </div>
+  <hr>
+  <app-friend-list></app-friend-list>
+</div>

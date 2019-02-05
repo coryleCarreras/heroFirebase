@@ -42,7 +42,7 @@ export class HeroDetailComponent implements OnInit {
   }
 
   addFriend(){
-    this.friendService.addFriend(this.idP, this.uid);
+    this.friendService.sendRequest(this.idP, this.uid);
   }
              
   onDeleteHero(hero:Hero){
@@ -50,11 +50,4 @@ export class HeroDetailComponent implements OnInit {
     this.router.navigate(['list']);
   }
 
-  // explore(hero: Hero, id: number){
-  //   this.router.navigate(['explore', hero.idUser, id]);
-  // }
-
-  getUid(){
-    return this.uid;
-  }
 }
