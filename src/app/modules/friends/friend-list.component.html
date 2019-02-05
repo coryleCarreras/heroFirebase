@@ -3,7 +3,7 @@
   <div *ngFor="let f of pendingFriends ; let i = index" class="basicContainerInline">
       <div *ngIf="f != ''" class="list-group module-hero">
           <span>
-            <h3 class="list-group-item-heading heroAttr h3">{{ f }}</h3> 
+            <h3 class="list-group-item-heading heroAttr h3" ><a (click)="onViewHero(f)">{{ f }}</a></h3> 
               <button  class="btn btn-default pull-right btn-danger inline" (click)="denyFriend(f)">Refuser cet ami</button>
               <button  class="btn btn-default pull-right btn-info inline mrg" (click)="confirmFriend(f)">Accepter cet ami</button>
           </span>

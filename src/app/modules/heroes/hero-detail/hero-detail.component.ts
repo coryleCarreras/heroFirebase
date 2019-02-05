@@ -17,8 +17,19 @@ export class HeroDetailComponent implements OnInit {
   private idP: string;
   private uid: string;
 
+  /**
+  * Creates a new instance of HeroEditComponent, intialize a new empty hero and then retrieves data corresponding to it in database
+  * @heroService the hero handling service
+  * @authService the session information service
+  * @friendService the friend handling service
+  * @route the route information service
+  * @router the route handling service
+  */
   constructor(private heroService: HeroService, private authService: AuthService, private friendService: FriendService, private route: ActivatedRoute, private router: Router) { }
 
+  /**
+   * Gets hero data corresponding to URL param
+   */
   ngOnInit() {
     this.idP = this.route.snapshot.params['iduser'];
 
@@ -29,22 +40,37 @@ export class HeroDetailComponent implements OnInit {
     //console.log(this.hero);
   }
 
+  /**
+   * Redirects to hero list view
+   */
   onBack(){
     this.router.navigate(['list']);
   }
 
-  trainHero(hero: Hero){
+  /**
+   * Redirects to hero training view
+   */
+  trainHero(){
     this.router.navigate(['train', this.uid]);
   }
 
-  editHero(hero: Hero){
+  /**
+   * Redirects to hero edit view
+   */
+  editHero(){
     this.router.navigate(['edit', this.uid]);
   }
 
+  /**
+   * Sends a friendship request to hero (not the currently logged in hero)
+   */
   addFriend(){
     this.friendService.sendRequest(this.idP, this.uid);
   }
-             
+       
+  /**
+   * Deletes hero data on databse then redirect to hero list view
+   */      
   onDeleteHero(hero:Hero){
     this.heroService.removeHero(hero);
     this.router.navigate(['list']);

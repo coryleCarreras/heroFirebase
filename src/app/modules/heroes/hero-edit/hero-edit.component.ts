@@ -16,6 +16,14 @@ export class HeroEditComponent implements OnInit {
   uid: string;
   idH: string;
 
+  /**
+  * Creates a new instance of HeroEditComponent, intialize a new empty hero and then retrieves data corresponding to it in database
+  * @heroService the hero handling service
+  * @formBuilder form handling service
+  * @route the route information service
+  * @router the route handling service
+  * @authService the session information service
+  */
   constructor(private heroService: HeroService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService) { 
     this.hero = new Hero('', '', '');
     this.uid = this.authService.getUid();
@@ -26,10 +34,16 @@ export class HeroEditComponent implements OnInit {
     });
   }
 
+  /**
+  * Initialize the hero editing form
+  */
   ngOnInit() {
     this.initForm();
   }
 
+  /**
+  * Binds name and heroType input to one form group
+  */
   initForm(){
     this.heroForm = this.formBuilder.group({
       name: [this.hero.name, Validators.required],
@@ -37,6 +51,9 @@ export class HeroEditComponent implements OnInit {
     }); 
   }
 
+  /**
+  * Checks if a user is logged in, then updates all hero information into database then redirect to hero list
+  */
   onSaveHero(){
     const name = this.heroForm.get('name').value;
     const type = this.heroForm.get('heroType').value;

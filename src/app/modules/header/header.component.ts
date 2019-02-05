@@ -11,8 +11,15 @@ export class HeaderComponent implements OnInit {
   isAuth: boolean;
   user: firebase.User 
 
+  /**
+  * Creates a new instance of HeaderComponent
+  * @authService the session information service
+  */
   constructor(private authService: AuthService) { }
 
+  /**
+  * Checks if the current user is logged in
+  */
   ngOnInit() {
     firebase.auth().onAuthStateChanged((user) => {
         if(user) {
@@ -24,6 +31,9 @@ export class HeaderComponent implements OnInit {
     );
   }
 
+  /**
+  * Signout the currently logged in user
+  */
   onSignOut() {
     this.authService.signOutUser();
   }

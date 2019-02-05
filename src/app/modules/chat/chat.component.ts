@@ -18,10 +18,16 @@ export class ChatComponent implements OnInit {
   chatStorm = []
   public chatForm: FormGroup;
   heroInf = [];
-
   chat: Subject<any>;
   received: Subscription
 
+  /**
+  * Creates a new instance of ChatComponent and initialize the form to one group
+  * @fb the form handling service
+  * @authService the session information service
+  * @heroService the hero handling service
+  * @chatService the global chat handling service
+  */
   constructor(@Inject(FormBuilder) private fb: FormBuilder, private authService: AuthService, 
               private heroService: HeroService, private chatService: WebsocketService) {
 
@@ -30,6 +36,9 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  /**
+  * Binds to the chatService event to receive and send message
+  */
   ngOnInit() {
     // Se lie à l'event chatMessage pour envoyer et recevoir des messages
     this.chat = this.chatService.event("chatMessage"); 
@@ -38,6 +47,9 @@ export class ChatComponent implements OnInit {
     this.chat.subscribe(this.displayChat.bind(this))  
   } 
 
+  /**
+  * send a object message to the connected socket
+  */
   sendMessage(){
     if(this.chatForm.getRawValue().content != null){
       var idh = this.authService.getUid();
@@ -57,6 +69,10 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  /**
+   * Stores the data sent by server to local var so it can be displayed on view
+   * @data The data sent by server
+   */
   displayChat(data){
       // console.log(data);
 

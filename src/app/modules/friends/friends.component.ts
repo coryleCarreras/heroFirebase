@@ -20,8 +20,18 @@ export class FriendsComponent implements OnInit {
   heroes = [];
   heroesSubscription: Subscription;
 
+  /**
+  * Creates a new instance of FriendsComponent 
+  * @friendService friend handling service
+  * @heroService hero handling service
+  * @authService Session information service
+  * @router route handling service
+  */
   constructor(private friendService: FriendService, private heroService: HeroService, private authService: AuthService, private router: Router) { }
 
+  /**
+  * Retrieves friendlist of currently logged in user then gets all hero data about those 
+  */
   ngOnInit() {
     this.uid = this.authService.getUid()
     this.friendService.getFriends().then((s: string) =>{
@@ -38,12 +48,19 @@ export class FriendsComponent implements OnInit {
     });
   }
 
+  /**
+  * Redirects to hero detail view
+  * @id the hero id to be seen
+  */
   viewFriend(id){
     this.router.navigate(['detail', id]);
   }
 
+  /**
+  * Deletes mutual friendship between two heroes
+  * @id the hero id to be deleted rom friendlist
+  */
   deleteFriend(id){
-    var tab = []
     this.friendService.deleteFriend(id, this.uid)
     this.friendService.deleteFriend(this.uid, id)
   }

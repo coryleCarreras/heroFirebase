@@ -13,12 +13,25 @@ import { Router } from '@angular/router';
 export class HeroFormComponent implements OnInit {
   heroForm: FormGroup;
 
+  /**
+  * Creates a new instance of HeroFormComponent
+  * @heroService the hero handling service
+  * @formBuilder form handling service
+  * @router the route handling service
+  * @authService the session information service
+  */
   constructor(private heroService: HeroService, private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
+  /**
+  * initialize the form
+  */
   ngOnInit() {
     this.initForm();
   }
 
+  /**
+  * Binds name and heroType input to one form group
+  */
   initForm(){
     this.heroForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -26,6 +39,9 @@ export class HeroFormComponent implements OnInit {
     }); 
   }
 
+  /**
+  * Checks if a user is logged in, then save all hero information into database then redirect to hero list
+  */
   onSaveHero(){
     const name = this.heroForm.get('name').value;
     const type = this.heroForm.get('heroType').value;

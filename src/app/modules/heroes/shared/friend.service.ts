@@ -17,12 +17,20 @@ export class FriendService {
   progFr= []
   friendsSubject = new Subject<string>();
 
+  /**
+  * Creates a new instance of FriendService and sets this.uid to currently logged in user
+  * @authService the session information service
+  */
   constructor(private authService: AuthService){
     this.uid = this.authService.getUid();
     this.friends = '';
   }
 
-  // ajoute idto à la liste d'ami de idfrom si il n'y est pas déjà (vire les doublons)
+  /**
+  * Add friend to a hero. calls the saveFriend() method to add. Call this method twice by inverting parameters to make friendship mutual
+  * @idTo the Hero id that will become friend
+  * @idFrom the Hero id that responded the request.
+  */
   addFriend(idTo: string, idFrom: string){
     this.getFriends().then((s: string) =>{
       this.friends = s ;
@@ -50,6 +58,10 @@ export class FriendService {
     this.friendsSubject.next(this.friends);
   }
 
+  /**
+  * Add friendship between heroes.
+  * @uid the Hero id that will become friend. If not precised, will be currently logged in user
+  */
   saveFriends(uid?: string){ 
     if(uid != null){
       firebase.database().ref('friends/'+uid).set(this.friends);
@@ -58,6 +70,11 @@ export class FriendService {
     }
   }
 
+  /**
+  * Get all friends from the currently logged in user.
+  * Returns a promise containing an array of hero.idUser seperated by ';' character, or an error
+  * @uid the Hero id to retrieve friend from
+  */
   getFriends(uid?:string){
     //console.log(uid);
     if(!uid){
@@ -80,7 +97,11 @@ export class FriendService {
     );
   }
 
-  // delete idf from idf
+  /**
+  * Delete friendship between two heroes.
+  * @idF the Hero that wants to remove friendship
+  * @ids the Hero that is removed from friendship
+  */
   deleteFriend(idf, ids){
     this.getFriends(idf).then((s: string) =>{
       //console.log("before : "+s);
@@ -96,6 +117,11 @@ export class FriendService {
     });
   }
 
+  /**
+  * Send a friendship request between two heroes.
+  * @idTo the Hero that receives friendship proposal
+  * @idFrom the Hero that sends friendship proposal
+  */
   sendRequest(idTo: string, idFrom: string){
     var nList = ''
     // ajouter idto à la liste de idfrom
@@ -125,6 +151,10 @@ export class FriendService {
     });
   }
 
+  /**
+  * Get the list of all waiting-to-be-friend heroes.
+  * @id the Hero that is currently logged in
+  */
   getPendingFriends(id){
     return new Promise(
       (resolve, reject) => {
@@ -141,6 +171,11 @@ export class FriendService {
     );
   }
 
+  /**
+  * Deletes a hero from friendship-waiting-list of the logged in user on both sides.
+  * @idFrom the Hero that deny friendship proposal
+  * @idTo the Hero that has been denied friendship proposal
+  */
   deletePendingFriend(idFrom, idTo){
     var nList = ''
     // ajouter idto à la liste de idfrom

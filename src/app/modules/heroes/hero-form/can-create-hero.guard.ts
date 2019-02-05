@@ -14,6 +14,10 @@ export class CanCreateHeroGuard {
 
   constructor(private router: Router, private authService: AuthService, private heroService: HeroService) { }
 
+  /**
+  * Checks the logged in user doesn't already have a hero (if he does have, then he can't create a new one)
+  * TODO : CHECK ^^^^^^
+  */
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     this.idP = this.authService.getUid();
     this.heroService.getSingleHero(this.idP).then((hero: Hero) =>{

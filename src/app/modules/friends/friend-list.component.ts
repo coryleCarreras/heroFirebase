@@ -6,6 +6,7 @@ import 'firebase/database';
 
 import { FriendService } from '../heroes/shared/friend.service';
 import { AuthService } from '../auth/shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friend-list',
@@ -16,8 +17,17 @@ export class FriendListComponent implements OnInit {
   uid = ''
   pendingFriends = []
 
-  constructor(private friendService: FriendService, private authService: AuthService) { }
+  /**
+  * Creates a new instance of FriendListComponent
+  * @friendService the friend handling service
+  * @authService the session information service
+  * @router the route handling service
+  */
+  constructor(private friendService: FriendService, private authService: AuthService, private router:Router) { }
 
+  /**
+  * Gets the pending friend request on database for currently logged in hero
+  */
   ngOnInit() {
     this.uid = this.authService.getUid();
     this.getFriendRequest().then((s: string) =>{
@@ -25,15 +35,21 @@ export class FriendListComponent implements OnInit {
         this.pendingFriends = s.split(';');
       }else this.pendingFriends.push('');
     });
-
   }
 
+  /**
+  * Accepts a pending request between two heroes and makes friendship mutual
+  * @idf the hero id accepted
+  */
   confirmFriend(idf){
     this.friendService.deletePendingFriend(idf, this.uid)
     this.friendService.addFriend(idf, this.uid);
     this.friendService.addFriend(this.uid, idf);
   }
 
+  /**
+  * Gets the pending request on database 
+  */
   getFriendRequest(){
     return new Promise(
       (resolve, reject) => {
@@ -50,7 +66,19 @@ export class FriendListComponent implements OnInit {
     );
   }
 
+  /**
+  * Deny a friendship relation between currently logged in hero and id's one
+  * @id the denied hero id
+  */
   denyFriend(id){
     this.friendService.deletePendingFriend(this.uid, id)
+  }
+
+  /**
+  * Redirects to hero detail view
+  * @f the to-be-seen hero id
+  */
+  onViewHero(f){
+    this.router.navigate(['detail', f]);
   }
 }

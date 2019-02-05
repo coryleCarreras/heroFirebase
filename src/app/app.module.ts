@@ -20,7 +20,6 @@ import { TrainingComponent } from './modules/heroes/heroes-actions/training/trai
 
 import { ChatComponent } from './modules/chat/chat.component';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-import { ChatService } from './modules/chat/chat-service';
 import { WebsocketService } from './modules/chat/websocket-service.service'
 
 import { FriendService } from './modules/heroes/shared/friend.service';
@@ -67,7 +66,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4201', options: {} };
     SocketIoModule.forRoot(config) 
 
   ],
-  providers: [AuthService, AuthGuardService, ChatService, FriendService, WebsocketService],
+  providers: [AuthService, AuthGuardService, FriendService, WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
