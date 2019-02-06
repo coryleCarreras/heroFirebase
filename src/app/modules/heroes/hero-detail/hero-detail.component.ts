@@ -66,6 +66,7 @@ export class HeroDetailComponent implements OnInit {
    */
   addFriend(){
     this.friendService.sendRequest(this.idP, this.uid);
+    this.friendService.sendRequest(this.uid, this.idP);
   }
        
   /**

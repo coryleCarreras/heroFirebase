@@ -32,23 +32,23 @@ export class FriendService {
   */
   addFriend(idTo: string, idFrom: string){
     this.friends = "";
-    this.getFriends().then((s: string) =>{
+    this.getFriends(idFrom).then((s: string) =>{
       this.friends = s ;
       //console.log(this.friends)
       var tab = []
       if(this.friends == null || this.friends == undefined || this.friends == '' || this.friends == ""){
         this.friends = idTo;
-        console.log(this.friends)
+        //console.log(this.friends)
       }else{
         tab = this.friends.split(';')
-        for (let i = 0; i < tab.length-1; i++) {
+        for (let i = tab.length-1; i >= 0 ; i--) {
           if(tab[i] == idTo){
             tab.splice(i, 1);
           }
         }
         tab.push(idTo);
         this.friends = tab.join(';');
-        console.log(this.friends)
+        // console.log(this.friends)
       }
       this.saveFriends(idFrom);
       this.emitFriends();
@@ -104,19 +104,20 @@ export class FriendService {
   * @ids the Hero that is removed from friendship
   */
   deleteFriend(idf, ids){
+    var tab = [] ;
+    var frf = '';
     this.getFriends(idf).then((s: string) =>{
-      //console.log("before : "+s);
-      var tab = s.split(';')
-      var frf = ''
-      if(tab.length = 1) {
-        tab.splice(0, 1);
-      }else{
-        for( var i = 0; i < tab.length-1; i++){ 
+      tab = s.split(';')
+      if(tab.length > 1) {
+        console.log(tab)
+        for( var i = tab.length-1; i >= 0 ; i--){ 
           if ( tab[i] == ids) {
             tab.splice(i, 1); 
           }
         }
         frf = tab.join(';')
+      }else{
+        frf = '';
       }
       this.friends = frf ;
       this.saveFriends(idf);
@@ -130,30 +131,21 @@ export class FriendService {
   */
   sendRequest(idTo: string, idFrom: string){
     var nList = ''
-    // ajouter idto à la liste de idfrom
     this.getPendingFriends(idTo).then((s: string) =>{
       this.friends = s ;
       if(this.friends != null && this.friends != '') {
         this.progFr = this.friends.split(';')
+        for( var i = this.progFr.length-1; i >= 0; i--){
+          if ( this.progFr[i] == idFrom) {
+            this.progFr.splice(i, 1); 
+          }
+        }
         this.progFr.push(idFrom)
         nList = this.progFr.join(';')
       }else{
         nList = idFrom;
       }
       firebase.database().ref('friendRequest/'+idTo).set(nList);
-    });
-    
-    // ajouter idfrom à la liste de idto
-    this.getPendingFriends(idFrom).then((s: string) =>{
-      this.friends = s ;
-      if(this.friends != null && this.friends != '') {
-        this.progFr = this.friends.split(';')
-        this.progFr.push(idTo)
-        nList = this.progFr.join(';')
-      }else{
-        nList = idTo;
-      }
-      firebase.database().ref('friendRequest/'+idFrom).set(nList);
     });
   }
 
@@ -192,7 +184,7 @@ export class FriendService {
         if(tab.length == 1){
           nList = '';
         }else {
-          for( var i = 0; i < tab.length-1; i++){ 
+          for( var i = tab.length-1; i >= 0; i--){ 
             if ( tab[i] == idFrom) {
               tab.splice(i, 1); 
             }
@@ -210,7 +202,7 @@ export class FriendService {
       if(tab.length == 1){
         nList = '';
       }else {
-        for( var i = 0; i < tab.length-1; i++){ 
+        for( var i = tab.length-1; i >= 0 ; i--){ 
           if ( tab[i] == idTo) {
             tab.splice(i, 1); 
           }

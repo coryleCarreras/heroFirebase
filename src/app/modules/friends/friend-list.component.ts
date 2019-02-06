@@ -43,6 +43,7 @@ export class FriendListComponent implements OnInit {
   */
   confirmFriend(idf){
     this.friendService.deletePendingFriend(idf, this.uid)
+    this.friendService.deletePendingFriend(this.uid, idf)
     this.friendService.addFriend(idf, this.uid);
     this.friendService.addFriend(this.uid, idf);
   }

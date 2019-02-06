@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeroEditComponent implements OnInit {
   heroForm: FormGroup;
-  hero: Hero;
+  hero: Hero[] = [];
   uid: string;
   idH: string;
 
@@ -25,12 +25,13 @@ export class HeroEditComponent implements OnInit {
   * @authService the session information service
   */
   constructor(private heroService: HeroService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService) { 
-    this.hero = new Hero('', '', '');
     this.uid = this.authService.getUid();
-    this.idH = this.route.snapshot.params['idhero'];
+    this.idH = this.route.snapshot.params['iduser'];
 
     this.heroService.getSingleHero(this.idH).then((hero: Hero) =>{
-      this.hero = hero;
+      this.hero.push(hero);
+      console.log(this.hero)
+      this.initForm();
     });
   }
 
@@ -38,7 +39,6 @@ export class HeroEditComponent implements OnInit {
   * Initialize the hero editing form
   */
   ngOnInit() {
-    this.initForm();
   }
 
   /**
@@ -46,8 +46,8 @@ export class HeroEditComponent implements OnInit {
   */
   initForm(){
     this.heroForm = this.formBuilder.group({
-      name: [this.hero.name, Validators.required],
-      heroType: [this.hero.type, Validators.required]
+      name: [this.hero[0].name, Validators.required],
+      heroType: [this.hero[0].type, Validators.required]
     }); 
   }
 
@@ -58,11 +58,11 @@ export class HeroEditComponent implements OnInit {
     const name = this.heroForm.get('name').value;
     const type = this.heroForm.get('heroType').value;
 
-    this.hero.name = name;
-    this.hero.type = type;
-    this.hero.idUser = this.uid;
+    this.hero[0].name = name;
+    this.hero[0].type = type;
+    this.hero[0].idUser = this.uid;
 
-    this.heroService.updateHero(this.hero, this.uid);
-    this.router.navigate(['detail', this.uid, this.idH]);
+    this.heroService.updateHero(this.hero[0], this.uid);
+    this.router.navigate(['detail', this.idH]);
   }
 }

@@ -58,11 +58,11 @@ export class FriendsComponent implements OnInit {
 
   /**
   * Deletes mutual friendship between two heroes
-  * @id the hero id to be deleted rom friendlist
+  * @id the hero id to be deleted from friendlist
   */
   deleteFriend(id: string){
-    this.friendService.deleteFriend(id, this.uid)
     this.friendService.deleteFriend(this.uid, id)
+    this.friendService.deleteFriend(id, this.uid)
   }
 
 }
