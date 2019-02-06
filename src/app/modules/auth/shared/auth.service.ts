@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { DataSnapshot } from '@angular/fire/database/interfaces';
 import { Account } from './account';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -31,15 +30,17 @@ export class AuthService {
   createUser(email: string, password: string){
     return new Promise(
       (resolve, reject) => {
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(
-          () => {
-            this.addUser(email);
-            resolve();
-          },
-          (error) => {
-            reject(error);
-          }
-        );
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function(){
+          firebase.auth().createUserWithEmailAndPassword(email, password).then(
+            () => {
+              this.addUser(email);
+              resolve();
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        }) 
       }
     );
   }
@@ -103,14 +104,16 @@ export class AuthService {
   logIn(email: string, password: string){
     return new Promise(
       (resolve, reject) => {
-        firebase.auth().signInWithEmailAndPassword(email, password).then(
-          () => {
-            resolve();
-          },
-          (error) => {
-            reject(error);
-          }
-        );
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function(){
+            firebase.auth().signInWithEmailAndPassword(email, password).then(
+            () => {
+              resolve();
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        })
       }
     );
   }

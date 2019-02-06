@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { Hero } from '../heroes/shared/hero';
 import { AuthService } from '../auth/shared/auth.service';
 import { Router } from '@angular/router';
-import { WebsocketService } from '../chat/websocket-service.service';
 
 @Component({
   selector: 'app-friends',
@@ -28,7 +27,7 @@ export class FriendsComponent implements OnInit {
   * @authService Session information service
   * @router route handling service
   */
-  constructor(private friendService: FriendService, private heroService: HeroService, private authService: AuthService, private router: Router, private chatService: WebsocketService) { }
+  constructor(private friendService: FriendService, private heroService: HeroService, private authService: AuthService, private router: Router) { }
 
   /**
   * Retrieves friendlist of currently logged in user then gets all hero data about those 

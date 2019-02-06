@@ -18,13 +18,14 @@ import { HeroFormComponent } from './modules/heroes/hero-form/hero-form.componen
 import { HeroEditComponent } from './modules/heroes/hero-edit/hero-edit.component';
 import { TrainingComponent } from './modules/heroes/heroes-actions/training/training.component';
 
+import { FriendService } from './modules/heroes/shared/friend.service';
+import { FriendsComponent } from './modules/friends/friends.component';
+import { FriendListComponent } from './modules/friends/friend-list.component';
+
 import { ChatComponent } from './modules/chat/chat.component';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { WebsocketService } from './modules/chat/websocket-service.service'
 
-import { FriendService } from './modules/heroes/shared/friend.service';
-import { FriendsComponent } from './modules/friends/friends.component';
-import { FriendListComponent } from './modules/friends/friend-list.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4201', options: {} };
 

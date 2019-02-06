@@ -25,6 +25,13 @@ io.on('connection', function(socket){
             console.log("error")
         }
     });
+    /*************** TODO : IMPLEMENT PRIVATE CHAT HERE AND IN APP ***************/
+    // socket.on('privMessage', function(msg){
+    //     var roomName = "room" + msg.idInitiator+';'+msg.idReceptioner
+    //     socket.join(roomName);
+    //     socket.idRoom = msg.idInitiator+';'+msg.idReceptioner
+    //     io.to(roomName).emit(msg.content) // à peaufiner
+    // });
 });
 
 http.listen(4201, function(){

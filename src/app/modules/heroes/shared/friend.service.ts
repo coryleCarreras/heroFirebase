@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { DataSnapshot } from '@angular/fire/database/interfaces';
-import { Hero } from './hero';
 import { Subject } from 'rxjs';
 
 import * as firebase from 'firebase/app';
@@ -32,6 +31,7 @@ export class FriendService {
   * @idFrom the Hero id that responded the request.
   */
   addFriend(idTo: string, idFrom: string){
+    this.friends = "";
     this.getFriends().then((s: string) =>{
       this.friends = s ;
       //console.log(this.friends)
@@ -46,6 +46,7 @@ export class FriendService {
             tab.splice(i, 1);
           }
         }
+        tab.push(idTo);
         this.friends = tab.join(';');
         console.log(this.friends)
       }
@@ -106,12 +107,17 @@ export class FriendService {
     this.getFriends(idf).then((s: string) =>{
       //console.log("before : "+s);
       var tab = s.split(';')
-      for( var i = 0; i < tab.length-1; i++){ 
-        if ( tab[i] == ids) {
-          tab.splice(i, 1); 
+      var frf = ''
+      if(tab.length = 1) {
+        tab.splice(0, 1);
+      }else{
+        for( var i = 0; i < tab.length-1; i++){ 
+          if ( tab[i] == ids) {
+            tab.splice(i, 1); 
+          }
         }
+        frf = tab.join(';')
       }
-      var frf = tab.join(';')
       this.friends = frf ;
       this.saveFriends(idf);
     });

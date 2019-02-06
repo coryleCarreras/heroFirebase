@@ -5,7 +5,6 @@ import { Hero } from '../shared/hero';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/shared/auth.service';
-import { delay } from 'q';
 
 @Component({
   selector: 'app-heroes-list',
