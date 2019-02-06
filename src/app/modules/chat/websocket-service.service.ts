@@ -53,8 +53,8 @@ export class WebsocketService {
       // Add an event listener
       this.socket.on(event, (data) => {
         observer.next(data);
-        console.log(event) // chatMessage
-        console.log(data)  // hh:mm:ss by xxxx : ****
+        // console.log(event) // chatMessage
+        // console.log(data)  // hh:mm:ss by xxxx : ****
       });
 
       // If we unsubscribe this, drop this event listener

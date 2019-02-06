@@ -9,6 +9,9 @@ import * as firebase from 'firebase';
 export class AuthGuardService {
   constructor(private router: Router) { }
 
+  /**
+   * Checks if a user is actually logged in and returns a promise containing a boolean
+   */
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return new Promise((resolve, reject) => {
         firebase.auth().onAuthStateChanged((user) => {

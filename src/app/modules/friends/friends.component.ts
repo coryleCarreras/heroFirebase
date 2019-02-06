@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Hero } from '../heroes/shared/hero';
 import { AuthService } from '../auth/shared/auth.service';
 import { Router } from '@angular/router';
+import { WebsocketService } from '../chat/websocket-service.service';
 
 @Component({
   selector: 'app-friends',
@@ -27,7 +28,7 @@ export class FriendsComponent implements OnInit {
   * @authService Session information service
   * @router route handling service
   */
-  constructor(private friendService: FriendService, private heroService: HeroService, private authService: AuthService, private router: Router) { }
+  constructor(private friendService: FriendService, private heroService: HeroService, private authService: AuthService, private router: Router, private chatService: WebsocketService) { }
 
   /**
   * Retrieves friendlist of currently logged in user then gets all hero data about those 
@@ -52,7 +53,7 @@ export class FriendsComponent implements OnInit {
   * Redirects to hero detail view
   * @id the hero id to be seen
   */
-  viewFriend(id){
+  viewFriend(id: string){
     this.router.navigate(['detail', id]);
   }
 
@@ -60,8 +61,9 @@ export class FriendsComponent implements OnInit {
   * Deletes mutual friendship between two heroes
   * @id the hero id to be deleted rom friendlist
   */
-  deleteFriend(id){
+  deleteFriend(id: string){
     this.friendService.deleteFriend(id, this.uid)
     this.friendService.deleteFriend(this.uid, id)
   }
+
 }

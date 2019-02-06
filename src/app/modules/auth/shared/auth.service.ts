@@ -16,9 +16,18 @@ export class AuthService {
   heroesSubject = new Subject<Account[]>();
   private uid: string ;
   
+  /**
+  * Creates a new instance of AuthService
+  * @router the route handling service
+  */
   constructor(private router: Router) { 
   }
 
+  /**
+  * Creates a new instance of AuthService
+  * @email the email provided by user
+  * @password the password provided by user
+  */
   createUser(email: string, password: string){
     return new Promise(
       (resolve, reject) => {
@@ -35,6 +44,9 @@ export class AuthService {
     );
   }
 
+  /**
+   * Gets the current logged in user id and stores it locally, or store a "NO USER LOGGED IN" instead
+   */
   getUser(){
     var user = firebase.auth().currentUser;
     // console.log(user);
@@ -45,11 +57,17 @@ export class AuthService {
     } 
   }
 
+  /**
+   * Calls getUser and then returns the id it has stored
+   */
   getUid(){
     this.getUser();
     return this.uid;
   }
 
+  /**
+   * Creates the newly created user main informations in database (not the login one) then redirect to hero form view
+   */
   addUser(email: string){
     if(this.getUid() != "NO USER LOGGED IN"){
       var m = new Date();
@@ -61,16 +79,27 @@ export class AuthService {
     }
   }
 
+  /**
+   * Saves the user credentials stored in addUser()
+   */
   createNewUser(newHero: Account){
     this.accounts.unshift(newHero);
     this.accounts.splice(1, (this.accounts.length-1));
     this.saveUser(this.getUid());
   }
 
+  /**
+   * Saves the user credentials in database
+   */
   saveUser(uid: string){
     firebase.database().ref('user/'+uid+'/').set(this.accounts);
   }
 
+  /**
+   * Log in the current user with credentials it provided
+   * @email the email provided
+   * @password the password provided
+   */
   logIn(email: string, password: string){
     return new Promise(
       (resolve, reject) => {
@@ -86,6 +115,9 @@ export class AuthService {
     );
   }
 
+  /**
+   * Log out the current user logged in
+   */
   signOutUser() {
     firebase.auth().signOut();
   }

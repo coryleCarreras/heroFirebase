@@ -12,14 +12,26 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   errorMessage: string;
 
-  constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
-              private router: Router) { }
+  /**
+  * Creates a new instance of SignupComponent
+  * @authService the session information service
+  * @formBuilder the form handling service
+  * @router the route handling service
+  */
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { 
 
+  }
+
+  /**
+   * Initialize the form
+   */
   ngOnInit() {
     this.initForm();
   }
 
+  /**
+   * Initialize the form by binding all inputs into one group
+   */
   initForm() {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -27,6 +39,9 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  /**
+   * Creates a new user by calling authService using the inputs filled earlier. Throws an error if can't create, redirect to hero form if ok (and log in the user)
+   */
   onSubmit() {
     const email = this.signupForm.get('email').value;
     const password = this.signupForm.get('password').value;
