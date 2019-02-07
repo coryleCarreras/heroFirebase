@@ -51,18 +51,7 @@ export class TrainingComponent implements OnInit {
   * @statTrained the stat to be trained ('agi', 'int' or 'str')
   */
   train(statTrained: string){
-    switch(statTrained){
-      case 'str': 
-          this.hero.newStats(true, false, false);
-          break;
-      case 'int': 
-          this.hero.newStats(false, true, false);
-          break;
-      case 'agi': 
-          this.hero.newStats(false, false, true);
-          break;
-    }
-
+    this.hero.newStats(statTrained);
     this.applyTraining();
   }
 

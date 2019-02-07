@@ -1,20 +1,23 @@
 <div class="row">
-    <div class="col-xs-12">
-        <span class="module-hero" *ngIf="this.hero.length != 0">
-          <h2 class="list-group-item-heading heroAttr h2 h3">{{ this.hero[0].name }} </h2>
-            <p class="list-group-item-text heroAttr stats">
-                  <span class="heroType">{{ this.hero[0].type }}</span> Hero with 
-                  <span class="heroStr {{this.hero[0].type}}">{{this.hero[0].str}} <i *ngIf="this.hero[0].type == 'str'" class="fas fa-fist-raised"></i></span> / 
-                  <span class="heroAgi {{this.hero[0].type}}">{{this.hero[0].agi}} <i *ngIf="this.hero[0].type == 'agi'" class="fas fa-crow"></i></span> / 
-                  <span class="heroInt {{this.hero[0].type}}">{{this.hero[0].int}} <i *ngIf="this.hero[0].type == 'int'" class="fas fa-brain"></i></span> stats
-            </p>
-            <button *ngIf="this.hero[0].idUser == this?.uid" class="btn btn-default pull-right btn-danger inline" (click)="onDeleteHero(hero)">Supprimer</button>
-            <button *ngIf="this.hero[0].idUser == this?.uid" class="btn btn-default pull-right btn-info inline mrg" (click)="trainHero()">Entrainer</button>
-            <!-- <button *ngIf="this.hero[0].idUser == this?.uid" class="btn btn-daner pull-right btn-warning inline mrg" (click)="explore(hero, i)">Explorer</button> -->
-            <button *ngIf="this.hero[0].idUser == this?.uid" class="btn btn-default pull-right btn-primary inline mrg" (click)="editHero()">Modifier</button>
-            <button *ngIf="this.hero[0].idUser != this?.uid" class="btn btn-default pull-right btn-primary inline mrg" (click)="addFriend()">Ajouter un ami</button>
-         
-        </span><br><br>
-      <button class="btn btn-primary btnBack" (click)="onBack()">Retour</button>
-    </div>
+  <div class="col-xs-12">
+    <span class="module-hero" *ngIf="this.hero.length != 0">
+      <h2 class="list-group-item-heading heroAttr h2 h3">{{ this.hero[0].name }} 
+        <i *ngIf="online()" class="pull-right btn-success inline empty fas fa-circle"></i>
+        <i *ngIf="!online()" class="pull-right btn-danger inline empty fas fa-circle"></i></h2>
+        <p class="list-group-item-text heroAttr stats">
+              <span class="heroType">{{ this.hero[0].type }}</span> Hero with 
+              <span class="heroStr {{this.hero[0].type}}">{{this.hero[0].str}} <i *ngIf="this.hero[0].type == 'str'" class="fas fa-fist-raised"></i></span> / 
+              <span class="heroAgi {{this.hero[0].type}}">{{this.hero[0].agi}} <i *ngIf="this.hero[0].type == 'agi'" class="fas fa-crow"></i></span> / 
+              <span class="heroInt {{this.hero[0].type}}">{{this.hero[0].int}} <i *ngIf="this.hero[0].type == 'int'" class="fas fa-brain"></i></span> stats
+        </p>
+        <button *ngIf="sameUser" class="btn btn-default pull-right btn-danger inline" (click)="onDeleteHero(hero)">Supprimer</button>
+        <button *ngIf="sameUser" class="btn btn-default pull-right btn-info inline mrg" (click)="trainHero()">Entrainer</button>
+        <!-- <button *ngIf="this.hero[0].idUser == this?.uid" class="btn btn-daner pull-right btn-warning inline mrg" (click)="explore(hero, i)">Explorer</button> -->
+        <button *ngIf="sameUser" class="btn btn-default pull-right btn-primary inline mrg" (click)="editHero()">Modifier</button>
+        <button *ngIf="!friend && !sameUser && loggedIn()" class="btn btn-default pull-right btn-success inline mrg" (click)="addFriend()">Ajouter un ami</button>
+        <button *ngIf="friend" class="btn btn-default pull-right btn-primary inline mrg" (click)="sendMsg()">Envoyer un message</button>
+      
+    </span><br><br>
+    <button class="btn btn-primary btnBack" (click)="onBack()">Retour</button>
   </div>
+</div>

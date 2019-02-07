@@ -16,6 +16,8 @@ export class HeroDetailComponent implements OnInit {
   hero: Hero[] = [];
   private idP: string;
   private uid: string;
+  friend: boolean
+  sameUser: boolean
 
   /**
   * Creates a new instance of HeroEditComponent, intialize a new empty hero and then retrieves data corresponding to it in database
@@ -32,11 +34,22 @@ export class HeroDetailComponent implements OnInit {
    */
   ngOnInit() {
     this.idP = this.route.snapshot.params['iduser'];
+    
 
     this.uid = this.authService.getUid();
     this.heroService.getSingleHero(this.idP).then((hero: Hero) =>{
       this.hero.push(hero);
+      if(this.idP == this.uid){
+        this.sameUser = true
+        this.friend = false 
+      }else {
+        this.sameUser = false
+        this.friendService.isFriend(this.hero[0].idUser).then((fr) =>{
+          this.friend = fr
+        })
+      }
     });
+
     //console.log(this.hero);
   }
 
@@ -77,4 +90,17 @@ export class HeroDetailComponent implements OnInit {
     this.router.navigate(['list']);
   }
 
+  loggedIn(){
+    if(this.uid == "NO USER LOGGED IN"){
+      return false 
+    } else return true
+  }
+
+  online(){
+    if(this.hero[0].onlineStatus == true){
+      return true
+    }else{
+      return false
+    }
+   }
 }

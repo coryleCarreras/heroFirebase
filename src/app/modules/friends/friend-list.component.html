@@ -1,15 +1,15 @@
 <div>
-  <h2>Pending request</h2>
   <div *ngFor="let f of pendingFriends ; let i = index" class="basicContainerInline">
-      <div *ngIf="f != ''" class="list-group module-hero">
-          <span>
-            <h4 class="list-group-item-heading heroAttr" ><a (click)="onViewHero(f)">{{ f }}</a></h4> 
-              <button  class="btn btn-default pull-right btn-danger inline" (click)="denyFriend(f)">Refuser cet ami</button>
-              <button  class="btn btn-default pull-right btn-info inline mrg" (click)="confirmFriend(f)">Accepter cet ami</button>
-          </span>
-      </div>
-      <div *ngIf="f == ''" class="basicContainerInline">
-        <span><p>No hero waiting to be your friend</p></span>
-      </div>
+    <div *ngIf="f != ''" class="list-group module-hero">
+      <h2>Pending request</h2>
+      <span>
+        <h4 class="list-group-item-heading heroAttr" ><a (click)="onViewHero(f)">{{ f }}</a></h4> 
+          <button  class="btn btn-default pull-right btn-danger inline" (click)="denyFriend(f)">Refuser cet ami</button>
+          <button  class="btn btn-default pull-right btn-info inline mrg" (click)="confirmFriend(f)">Accepter cet ami</button>
+      </span>
+    </div>
+    <div *ngIf="f == ''" class="basicContainerInline">
+      <span><p>No hero waiting to be your friend</p></span>
+    </div>
   </div>
 </div>

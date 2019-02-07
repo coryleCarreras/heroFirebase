@@ -6,6 +6,7 @@ export class Hero {
     str: number = 1;
     int: number = 1;
     role: string = "player";
+    onlineStatus: boolean;
     
     /**
      * create a new Hero item with Name, Type and userId
@@ -37,19 +38,21 @@ export class Hero {
 
     /**
      * Edit an existing Hero stats
-     * @str Strength attribute
+     * @stat the stat to increase
      * @int Intelligence attribute
      * @agi Agility attribute
      */
-    newStats(str: boolean, int: boolean, agi: boolean){
-        if(str){
-            this.str++;
+    newStats(stat: string){
+        switch(stat){
+            case 'str':
+                this.str++
+                break;
+            case 'agi':
+                this.agi++
+                break;
+            case 'int':
+                this.int++
+                break;
         }
-        if(int){
-            this.int++;
-        }
-        if(agi){
-            this.agi++;
-        } 
     }
 }

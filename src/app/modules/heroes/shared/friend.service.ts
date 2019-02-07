@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
 import { AuthService } from '../../auth/shared/auth.service';
+import { promise } from 'protractor';
+import { reject } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,47 @@ export class FriendService {
   constructor(private authService: AuthService){
     this.uid = this.authService.getUid();
     this.friends = '';
+  }
+
+  /**
+   * 
+   * @id thid hero id to check if current user is friend with 
+   */
+  isFriend(id: string): Promise<boolean>{   
+    return new Promise(
+      (resolve, reject) => {
+        this.getFriends(this.authService.getUid()).then((data: any) =>{
+            //console.log(data);
+              var friendTab = []
+              if(data != '' && data != null){
+                friendTab = data.split(';');
+                for (let i = 0; i < friendTab.length; i++) {
+                  if(id == friendTab[i]){
+                    resolve(true);
+                  }
+                }
+              }
+              resolve(false);
+            }, (error) =>{
+                console.log(error.code);
+                console.log(error.message);
+                reject(error);
+            }
+        );
+      }
+    );
+    // this.getFriends(this.authService.getUid()).then((data: any) =>{
+    //   var friendTab = []
+    //   if(data != '' && data != null){
+    //     friendTab = data.split(';');
+    //     for (let i = 0; i < friendTab.length; i++) {
+    //       if(id == friendTab[i]){
+    //         return true
+    //       }
+    //     }
+    //   }
+    //   return false  
+    // }
   }
 
   /**
@@ -76,7 +119,7 @@ export class FriendService {
   * Returns a promise containing an array of hero.idUser seperated by ';' character, or an error
   * @uid the Hero id to retrieve friend from
   */
-  getFriends(uid?:string){
+  getFriends(uid?:string): Promise<string>{
     //console.log(uid);
     if(!uid){
       this.uid = this.authService.getUid();
@@ -86,7 +129,7 @@ export class FriendService {
     return new Promise(
       (resolve, reject) => {
         firebase.database().ref('/friends/'+this.uid).once('value').then((data:DataSnapshot)=> {
-                //console.log(data.val());
+                //console.log(data);
                 resolve(data.val());
             }, (error) =>{
                 console.log(error.code);

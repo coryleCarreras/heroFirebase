@@ -1,5 +1,5 @@
 .module-hero{
-    width: 100%;
+    width: 97%;
     padding: 7px;
     margin: 10px;
     border: .2rem solid #cedcea;
@@ -50,4 +50,28 @@ button.list-group-item{
 }
 .heroInt.int{
     font-size: 26px;
+}
+.empty.danger{
+    border: none;
+    background-color: inherit;
+    pointer-events: none;
+}
+.empty.danger:hover:active:focus{
+    border: none;
+    background-color: inherit;
+}
+.empty{
+    border: none;
+    background-color: inherit;
+    pointer-events: none;
+}
+.empty:hover:active:focus{
+    border: none;
+    background-color: inherit;
+}
+i.btn-success{
+    color: green
+}
+i.btn-danger{
+    color: red
 }
